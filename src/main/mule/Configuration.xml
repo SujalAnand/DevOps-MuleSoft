@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="e73768a5-c23a-4097-b5d4-8d9658dc5f20" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="62817cf4-d675-4e07-9285-d78051e55182" basePath="${training.basepath}" >
+		<http:request-connection host="${training.host}" port="${training.port}"/>
+	</http:request-config>
+	<global-property doc:name="Global Property" doc:id="eac03aef-7724-40e2-941e-5d3bb195c7e0" name="mule.env" value="dev" />
+	<configuration-properties doc:name="Configuration properties" doc:id="7640d659-95c7-4b9f-8a9d-4b7866d51093" file="properties\sample-${mule.env}-config.yaml" />
+	<!-- <configuration-properties doc:name="Configuration properties" doc:id="edc80381-38b9-4db5-b14a-049ccae4a78d" file="properties\secure\sample-dev-sfdc.properties" /> -->
+</mule>

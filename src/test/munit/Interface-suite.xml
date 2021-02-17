@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="Interface-suite.xml" />
+	<munit:test name="getFlights-test" doc:id="0034cf98-021c-4465-8de7-e3342b8269cf" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="a6883636-5f11-4af1-8401-f2642f2501a7" >
+				<munit:payload value="#[readUrl('classpath://getFlightstest\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getFlightstest\set-event_attributes.dwl')]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getFlights" doc:id="a88a7e8a-d7b3-49f5-b814-82e2f3ed00e5" name="getFlights"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="37922564-9aa1-4604-852a-4b6c8f9023d2" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getFlightstest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="getFlights-test-content-type" doc:id="3f9849e7-e982-4199-bc51-c820de2fb8d2">
+			<munit:execution>
+				<flow-ref doc:name="Flow-ref to getFlights" doc:id="5bc419e5-dc52-41a4-9f5e-84dce59bf085" name="getFlights" />
+			</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-that doc:name="Assert that content type is application/json" doc:id="cbf84a46-a4fa-4f68-b2af-09758c423cec" expression="#[payload]" is="#[MunitTools::withMediaType('application/json')]" message='#["Output Response are not of type application/json"]'/>
+			</munit:validation>
+		</munit:test>
+	
+		<munit:test name="getFlights-test-size-of-payload" doc:id="4431a0df-6dac-4916-87d1-ea78b754428b" >
+			<munit:execution >
+				<flow-ref doc:name="Flow-ref to getFlights" doc:id="5af7fa40-5fd6-40bd-b8f7-d582866c68fb" name="getFlights" />
+			</munit:execution>
+			<munit:validation >
+				<munit-tools:assert-that doc:name="Assert that sizeof payload is greater than 1" doc:id="c30cd946-d743-47e8-a5f7-2a8fd35af258" message='#["Output Response are not of type application/json"]' expression="#[sizeOf(payload)]" is="#[MunitTools::greaterThan(1)]" />
+			</munit:validation>
+		</munit:test>
+	
+
+
+</mule>

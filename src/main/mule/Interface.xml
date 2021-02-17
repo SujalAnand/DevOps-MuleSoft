@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd">
+	<flow name="getFlights" doc:id="afd7365e-dca0-486d-a9b9-31613d51731c" >
+		<http:listener doc:name="Listener" doc:id="29ada99c-6684-4e85-8973-43ee665ee23b" path="${http.path}" config-ref="HTTP_Listener_config"/>
+		<logger level="INFO" doc:name="In Flights Flow" doc:id="5bf6f2ba-6151-4b61-a7c6-7e3aacb1e110" message='#["message" : "In Flights Flow and before calling Database"]'/>
+		<http:request method="GET" doc:name="calling RestAPI" doc:id="b660e9e0-6378-4bf6-ac12-053d79089d85" config-ref="HTTP_Request_configuration" path="${training.path}"/>
+		<logger level="INFO" doc:name="After Rest API" doc:id="7bfd93f0-edb7-4fe7-9538-de7af3d3cfa9" message='#["Message" : "After Rest API"]'/>
+		<ee:transform doc:name="Payload mapping" doc:id="cc76e64c-d3c3-47c3-ae10-352e09489cb6" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload.flights map (object,index)->{
+			"Name": object.code,
+            "price__c": object.price,
+            "origin__c": object.origin,
+            "destination__c": object.destination,
+            //"departureDate__c":  object.departureDate  replace "/" with "-"  as String as Date  ,
+            "planeType__c": object.planeType,
+            "airlineName__c": object.airlineName,
+            "emptySeats__c": object.emptySeats
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="payload" doc:id="796771fb-e1bb-459f-b71a-db61a9a2f03b" message="#[payload]"/>
+	</flow>
+</mule>

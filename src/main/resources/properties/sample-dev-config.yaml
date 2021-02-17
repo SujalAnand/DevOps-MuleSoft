@@ -1,0 +1,12 @@
+#HTTP Listener Configuration
+http:
+  port: "8082"
+  path: "/test"
+  
+#HTTP Request Configuration
+training:
+  host: "ilt.learn.mulesoft.com"
+  port: "80"
+  basepath: "/"
+  protocol: "HTTP"
+  path: "united/flights"
