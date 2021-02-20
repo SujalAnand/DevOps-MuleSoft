@@ -19,7 +19,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<app.runtime>4.3.0-20201013</app.runtime>
 		<mule.maven.plugin.version>3.3.5</mule.maven.plugin.version>
-	<munit.version>2.3.1</munit.version>
+		<munit.version>2.3.1</munit.version>
     </properties>
 
 	<scm>
@@ -61,7 +61,11 @@
                 </executions>
                 <configuration>
                     <coverage>
-                        <runCoverage>true</runCoverage>
+					    <runCoverage>true</runCoverage>
+					    <failBuild>true</failBuild>
+					    <requiredApplicationCoverage>75</requiredApplicationCoverage> 
+					    <requiredResourceCoverage>50</requiredResourceCoverage>
+					    <requiredFlowCoverage>50</requiredFlowCoverage>
                         <formats>
                             <format>html</format>
                         </formats>
@@ -84,13 +88,20 @@
             <version>1.1.6</version>
             <classifier>mule-plugin</classifier>
         </dependency>
+        <dependency>
+			<groupId>com.mulesoft.munit</groupId>
+			<artifactId>munit-remote</artifactId>
+			<version>${munit.version}</version>
+			<scope>test</scope>
+			</dependency>
 		<dependency>
             <groupId>com.mulesoft.munit</groupId>
             <artifactId>munit-runner</artifactId>
             <version>2.3.1</version>
             <classifier>mule-plugin</classifier>
             <scope>test</scope>
-        </dependency>	<dependency>
+        </dependency>	
+        <dependency>
             <groupId>com.mulesoft.munit</groupId>
             <artifactId>munit-tools</artifactId>
             <version>2.3.1</version>
