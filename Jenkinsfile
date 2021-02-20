@@ -15,7 +15,15 @@ pipeline {
     }
     stage('Unit Test') {
       steps {
+	    echo "~~~~~~~Munit Test Checking Code Coverage~~~~~~~~~"
         bat 'mvn clean test'
+      }
+    }
+	
+	stage('Publishing Artifactory To JFrog') {
+      steps {
+		echo "~~~~~~~Publishing to Artifactory~~~~~~~~~"
+        bat 'mvn clean package deploy -U -DskipMunitTests'
       }
     }
     stage('Deploy CloudHub') {
@@ -24,10 +32,9 @@ pipeline {
        // muleEnv = "${env.cloudhub_env.toLowerCase()}"
       }
       steps {
-        echo "----Publishing to Artifactory------ "
-        bat 'mvn clean package deploy -U -Dmaven.test.skip=true -Dusername=sujalanand056@gmail.com -Dpassword=SAbhi#0056'
+		echo "----Deploy To CloudHub----- "
         echo "----Running Build ${env.BUILD_ID} on muleEnv - dev----- "
-        bat 'mvn clean package deploy -DmuleDeploy -P cloudhub -Danypoint.username=%USER_CREDENTIALS_USR% -Danypoint.password=%USER_CREDENTIALS_PSW% -Dmule.env=dev -Dcloudhub.env=Sandbox -Danypoint.businessGroup=wipro -Dcloudhub.region=us-east-1 -Dcloudhub.workers=1 -Dcloudhub.workerType=MICRO'
+        bat 'mvn clean package deploy -DskipMunitTests -DmuleDeploy -P cloudhub -Danypoint.username=%USER_CREDENTIALS_USR% -Danypoint.password=%USER_CREDENTIALS_PSW% -Dmule.env=dev -Dcloudhub.env=Sandbox -Danypoint.businessGroup=wipro -Dcloudhub.region=us-east-1 -Dcloudhub.workers=1 -Dcloudhub.workerType=MICRO'
       }
     }
   }
