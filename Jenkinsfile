@@ -1,5 +1,7 @@
 pipeline {
-  agent any
+  agent any{
+		customWorkspace 'C:\Users\Administrator\Desktop\workspace'
+  }
   tools { 
         maven 'maven-3.6.3'
         jdk 'jdk8' 
