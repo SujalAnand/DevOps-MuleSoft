@@ -1,6 +1,9 @@
 pipeline {
-  agent any{
+  agent {
+	any{
+		label 'my-defined-label'
 		customWorkspace 'C:\Users\Administrator\Desktop\workspace'
+  }
   }
   tools { 
         maven 'maven-3.6.3'
