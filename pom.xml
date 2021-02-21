@@ -23,9 +23,9 @@
     </properties>
 
 	<scm>
-		<url>https://github.com/SujalAnand/ci-cd-jenkins-mule.git</url>
-		<connection>scm:git:git@github.com:SujalAnand/ci-cd-jenkins-mule.git</connection>
-		<developerConnection>scm:git:git@github.com:SujalAnand/ci-cd-jenkins-mule.git</developerConnection>
+		<url>https://github.com/SujalAnand/DevOps-MuleSoft.git</url>
+		<connection>scm:git:git@github.com:SujalAnand/DevOps-MuleSoft.git</connection>
+		<developerConnection>scm:git:git@github.com:SujalAnand/DevOps-MuleSoft.git</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 
