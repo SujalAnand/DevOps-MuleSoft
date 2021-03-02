@@ -28,7 +28,7 @@ pipeline {
 	stage('Release Jar to Jfrog') {
       steps {
 	    echo "~~~~~~~Cutting a release in git as well as in Jfrog~~~~~~~~~"
-			bat 'mvn release:clean release:prepare release:perform -DskipStaging=true -DreleaseVersion=${releaseVersion} -DdevelopmentVersion=${developmentVersion} -Dtag=${releaseVersion}'
+			bat 'mvn release:clean release:prepare release:perform -DskipStaging=true -DreleaseVersion=%releaseVersion% -DdevelopmentVersion=%developmentVersion% -Dtag=%releaseVersion%'
       }
     }
 
