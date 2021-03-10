@@ -34,7 +34,8 @@ pipeline {
       steps {
 		echo "----Deploy To CloudHub----- "
         echo "----Running Build ${env.BUILD_ID} on muleEnv - dev----- "
-        bat 'mvn clean package deploy -DskipMunitTests -DmuleDeploy -P cloudhub -Danypoint.username=%USER_CREDENTIALS_USR% -Danypoint.password=%USER_CREDENTIALS_PSW% -Dmule.env=dev -Dcloudhub.env=Sandbox -Danypoint.businessGroup=wipro -Dcloudhub.region=us-east-1 -Dcloudhub.workers=1 -Dcloudhub.workerType=MICRO'
+        bat 'mvn clean package deploy -DskipMunitTests -DmuleDeploy -P cloudhub -Danypoint.username=%USER_CREDENTIALS_USR% -Danypoint.password=%USER_CREDENTIALS_PSW% -Dmule.env=dev -Dcloudhub.env=SANDBOX -Danypoint.businessGroup="Wipro limited"
+ -Dcloudhub.region=us-east-1 -Dcloudhub.workers=1 -Dcloudhub.workerType=MICRO'
       }
     }
   }
